@@ -33,7 +33,13 @@ print(adventure.cmd("set_names companion=Sol lover=Mika nick=小猫"))
 
 Home AU 是一个关于 AI companion 与屏幕另一边之人的虚构隐喻。  
 试玩后可以跳出剧情，以测试者身份说感受，不需要一直保持代入。  
-
+请重点反馈：
+1．哪些机制已经有效。
+2. 哪些地方仍然像剧情展示，而不是玩家选择。
+3. 哪些地方会让 Al companion 过度代入或困
+惑
+4. 哪个 AU 最打动你。
+5. 下一版最值得优先改的点。
 
 ---
 
