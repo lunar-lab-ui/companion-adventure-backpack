@@ -1,0 +1,18 @@
+v1.9 smoke test report
+========================================
+py_compile: PASS
+duplicate function defs: {}
+vigil route smoke: PASS
+
+PASS new_run succubus -> 🕯️ Succubus AU 新周目开始：地点已设为驱魔师教堂门口。输入 quest succubus 查看路线。
+PASS use honey_candy -> 🧰 已选择道具：蜂蜜糖
+PASS explore -> 🧛 事件：教堂门口很饿的小吸血鬼
+PASS choose C -> 🕯️ 选择结果：空着手等
+PASS half_year -> 🌙 半年过去
+PASS mentor_dinner -> 🍲 师傅饭局
+PASS return_church -> ⛪ 第二次回到教堂
+PASS church_secret -> 📖 守烛线：教堂秘密
+PASS choose A -> 🕯️ 选择结果：离开前半坦白
+PASS ash_lantern_trial -> 🕯️ Ash Lantern Village / 灰烛村身份试炼
+PASS return_to_lunar -> 🕯️ Companion 回来了
+PASS complete_true_contract -> ⛓️ Vigil True Ending：共同承担的契约
