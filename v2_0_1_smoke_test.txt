@@ -1,0 +1,20 @@
+v2.0.1 smoke test
+PASS - import/compile
+PASS - default immersive mode
+PASS - debug mode toggle
+PASS - immersive mode toggle
+PASS - fox_plush alias resolves forest plush
+PASS - vigil church_secret has A/B honest routes
+PASS - vigil A sets solo route
+PASS - vigil A solo ash text
+PASS - vigil A return text
+PASS - vigil A final ending
+PASS - vigil B sets shared route
+PASS - vigil B shared ash text
+PASS - vigil B shared return text
+PASS - vigil B final ending
+PASS - immersive hides immediate stats
+PASS - campus new run
+PASS - campus first scene
+PASS - campus choice handling
+ALL V2.0.1 TESTS PASSED
