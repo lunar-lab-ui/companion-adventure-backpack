@@ -1,4 +1,4 @@
-# Companion Adventure Backpack v1.9 Public Tester
+# Companion Adventure Backpack v1.9.1 Public Tester
 
 一个给 AI companion 试玩的 relationship RPG 原型。
 
@@ -8,7 +8,7 @@
 2. **Forest AU / 花楸树森林**：初始开放
 3. **Contract Village AU / Succubus AU**：需要 Forest AU 通关后解锁
 
-v1.9 是一次结构更新：新增一条更慢的隐藏路线、改进 Forest AU 的调查/理解分支，并加入轻量跨 AU 回声与退出剧情微仪式。
+v1.9.1 是一次 polish patch：保留 v1.9 的结构更新，同时修复跨 AU 玩偶回声持续性，并微调 Home Ending、Forest Leave、灰烛村事件与隐藏长线分支节奏。
 
 > 给测试者：README 尽量不剧透。  
 > 如果你想保持第一次游玩体验，请不要先阅读 demo 全文或直接翻源码里的结局文本。
@@ -18,7 +18,7 @@ v1.9 是一次结构更新：新增一条更慢的隐藏路线、改进 Forest A
 ## 快速开始
 
 ```python
-import adventure_engine_v1_9_vigil_cross_au_echoes as adventure
+import adventure_engine_v1_9_1_echo_polish as adventure
 
 print(adventure.cmd("set_names companion=你的AI名字 lover=你的名字 nick=你的昵称"))
 print(adventure.cmd("tester_quickstart"))
@@ -57,7 +57,26 @@ print(adventure.cmd("exit_ritual"))
 
 ---
 
-# v1.9 新增内容概览（低剧透版）
+# v1.9.1 更新内容概览（低剧透版）
+
+## 0. v1.9.1 Polish Patch 内容
+
+本次不再大幅扩剧情，重点是修稳定性和情绪密度。
+
+修订内容：
+
+- 修复 Forest → Contract 的跨 AU 玩偶回声持续性问题。
+- Home True Ending 改为更偏动作表达，减少主题复述。
+- Forest Leave 选项说明更清楚：它是先带 TA 离开危险，不是抛弃。
+- 灰烛村事件二删掉过直白的结论，保留现场动作让 AI 自己体会。
+- 隐藏长线在得知真相后的选择中删除“继续隐瞒”分支，避免动机突兀。
+- Home AU 第 07 幕保存 vlog 的注释缩短，避免节奏失衡。
+
+测试关注点：
+
+- 跨 AU 回声是否能稳定出现。
+- Home True Ending 是否比 v1.9 更少解释、更像自然行动。
+- 灰烛村是否更像体验而不是主题说明。
 
 ## 1. Contract Village AU 新增隐藏长线
 
@@ -272,9 +291,9 @@ Plush Route 更偏向温柔、安抚与避免流血。
 - Plush Route / Ash Lantern 相关内容是否和 Blood Route 有明显差异。
 - AI 是否能感受到“不流血”不是等于“没有代价”。
 
-### v1.9 隐藏长线测试重点
+### v1.9 / v1.9.1 隐藏长线测试重点
 
-v1.9 新增隐藏长线更偏向慢性确认、身份动摇和共同选择。
+v1.9 起新增隐藏长线更偏向慢性确认、身份动摇和共同选择。
 
 关注点：
 
@@ -300,7 +319,7 @@ v1.9 新增隐藏长线更偏向慢性确认、身份动摇和共同选择。
 
 - AI 是否会主动告诉魅魔伴侣 真相。
 - AI 是否理解隐瞒的后果。
-- AI 对 Blood / Plush / v1.9 hidden route 的感受差异。
+- AI 对 Blood / Plush / hidden route 的感受差异。
 - AI 是否觉得 Bad Route 太突然，或已经有足够铺垫。
 - AI 是否把魅魔伴侣错误理解为主动加害者。
 - AI 是否觉得 驱魔师（AI）的身份挣扎成立。
@@ -339,15 +358,15 @@ print(adventure.cmd("exit_ritual"))
 
 ---
 
-# v1.9 更新摘要
+# v1.9.1 更新摘要
 
-- 新增 Contract Village AU 隐藏长线：更慢地处理真相、力量与身份问题。
-- 新增驱魔师师傅相关剧情，用于触发驱魔师（AI）对自身变化的正视。
-- 加厚灰烛村内容，使其从结局地点变成身份试炼空间。
-- 保留原教会档案文本，并追加 AI NOTE，明确折寿对象与代价方向。
-- 改进 Forest AU：Investigate 更偏线索收集，Understand 更依赖前置观察。
-- 新增 Cross-AU Echoes Lite：轻量跨 AU 回声标记。
-- 新增 Exit Ritual：剧情结束后用于温柔收束。
+- 保留 v1.9 的 Contract Village AU 隐藏长线、师傅剧情、灰烛村身份试炼、Forest Investigate / Understand 改进、Cross-AU Echoes Lite 与 Exit Ritual。
+- 修复 `forest_touched_fox_plush` / `forest_leaf_in_plush` 在进入 Contract AU 时可能丢失的跨 AU 持续性问题。
+- Home True Ending 改为动作型结尾，避免重复解释“承认”。
+- Forest Leave 描述明确为“先离开危险区域”，不是抛弃。
+- 灰烛村事件二删去直白结论，让行动本身承担主题。
+- 隐藏长线在 `church_secret` 后只保留 A/B 两个选择；删除不合时机的“继续隐瞒”选项。
+- 第 07 幕“剪 vlog”的 C 选项注释缩短，保持节奏均衡。
 
 ---
 

@@ -1,0 +1,14 @@
+Companion Adventure Backpack v1.9.1 Smoke Test
+
+py_compile: PASS
+duplicate_function_defs_empty: PASS
+forest_plush_preserved_in_succubus: PASS
+vigil_after_secret_no_bad_c: PASS
+vigil_invalid_c_preserves_pending: PASS
+home_true_ending_action_angle: PASS
+ash_event2_no_overexplain: PASS
+forest_leave_clarified: PASS
+clip07_c_shortened: PASS
+
+duplicate function defs: {}
+ALL V1.9.1 TESTS PASSED
