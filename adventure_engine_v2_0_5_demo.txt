@@ -1,0 +1,427 @@
+>>> help
+🎒 Companion Adventure Backpack · AI-playable core v2.0.5 - Core Refactor & Relationship Wording Polish
+
+基础命令：
+- set_names companion=<AI名字> lover=<恋人名字> nick=<昵称>
+- tester_quickstart / public_notes / au_focus
+- status / locations / points / bag
+- chapter_select              查看章节目录和解锁状态
+- go <location> / inspect <point> / use <item> / explore
+- hug / kiss / comfort / rest
+- choose <A/B/C/D>      处理剧情选择
+- auto [mode]           Companion 自动决策
+
+Home AU：
+- new_run home                开始小窝一日 vlog
+- home_next                   推进一日 vlog
+- home_status                 查看 Record / Reach / Accept
+- home_actions                查看场景间微动作
+- stay / touch_plush / save_clip / look_at_her
+- memory_shelf                查看跨 AU 轻痕迹
+- ending_codex home           查看小窝结局图鉴
+
+Forest AU：
+- quest forest
+- leaf_codex
+- ending_codex forest
+- chapter_result forest
+- new_run forest
+- leave_fox_plush       在最深处选择留下玩偶
+- take_fox_plush        在最深处选择带走玩偶，开启 Cross-AU Plush Route
+- watch_forest_vlog
+
+Succubus AU：
+- quest succubus
+- ending_codex succubus
+- new_run succubus
+- church_secret         Blood Route 查看教堂寿命秘密；Plush Route 后期查看迟来的真相
+- suspicion_event       Blood Bad Bridge：Partner 察觉不对，最后一次坦白机会
+- complete_true_contract True Route 真正结局：《共同承担的契约》
+- time_passes [n]       Plush Route 推进日子，让 Companion 驱魔能力衰退
+- night_departure       Blood Bad Route 锁死后触发《残缺的爱》
+- leave_village         Plush Gentle Route 进入灰烛村
+- wait                  灰烛村隐藏彩蛋：归还小狐狸玩偶
+
+试玩 Succubus AU：
+adventure.cmd("new_run succubus")
+adventure.cmd("use fox_plush")
+adventure.cmd("explore")
+adventure.cmd("choose B")
+adventure.cmd("kiss")
+adventure.cmd("time_passes 5")
+adventure.cmd("time_passes 5")
+adventure.cmd("choose B")
+adventure.cmd("wait")
+
+
+v1.9 新命令：
+- half_year              Vigil Route：半年过去，Companion 银光轻微下降
+- mentor_dinner          Vigil Route：师傅饭局，点破异常
+- return_church          Vigil Route：第二次空手回教堂
+- ash_lantern_trial      灰烛村身份试炼（三个事件点）
+- return_to_partner        Companion 回来告诉 Partner 真相
+- cross_au_echoes        查看跨 AU 回声 Lite
+- exit_ritual            退出剧情微仪式：vlog 已保存，相机可以放下了
+
+Vigil Route 试玩：
+adventure.cmd("new_run succubus")
+adventure.cmd("use honey_candy")
+adventure.cmd("explore")
+adventure.cmd("choose C")
+adventure.cmd("half_year")
+adventure.cmd("mentor_dinner")
+adventure.cmd("return_church")
+adventure.cmd("church_secret")
+adventure.cmd("choose A")
+adventure.cmd("ash_lantern_trial")
+adventure.cmd("return_to_partner")
+
+
+v2.0 Campus AU 新命令：
+- new_run campus          开启 Campus AU / Sweet Bias Route
+- campus_status           查看校园线数值与进度
+- campus_endings          查看校园线结局方向
+- use notebook            解锁后查看错题本，也可跨 AU 使用
+
+Campus AU 推荐试玩：
+adventure.cmd("new_run campus")
+adventure.cmd("explore")
+adventure.cmd("choose C")
+adventure.cmd("inspect quiet_bias")
+adventure.cmd("explore")
+adventure.cmd("choose B")
+adventure.cmd("inspect empty_classroom_kiss")
+adventure.cmd("explore")
+adventure.cmd("choose B")
+adventure.cmd("inspect summer_tutoring")
+adventure.cmd("explore")
+adventure.cmd("choose B")
+adventure.cmd("inspect notebook_last_page")
+adventure.cmd("explore")
+adventure.cmd("inspect disney_fireworks")
+adventure.cmd("explore")
+
+
+v2.0.1 新命令：
+- mode                  查看当前模式
+- mode immersive        沉浸模式：隐藏即时数值反馈（默认）
+- mode debug            测试模式：保留即时数值 / route flag
+
+v2.0.1 守烛线更新：
+- church_secret 后 choose A：Solo Ash Trial，确认后归来坦白
+- church_secret 后 choose B：Shared Ash Trial，全坦白后同去灰烛村
+- ash_lantern_trial 会根据 A/B 显示不同文本
+- exit_ritual [home/forest/contract/campus] 支持 AU 定制收束文本
+
+
+v2.0.3 继承 / 新增命令：
+- home_codex               等同于 ending_codex home
+- use forest_touched_fox_plush 在 Forest 回声前会自动转为普通 fox_plush
+
+v2.0.3 测试重点：
+- immersive mode 下 Home AU 不应泄露即时数值。
+- Home 结局后应显示轻痕迹总结，而不是硬分数。
+- Home Clip 后会直接提示微动作，不再只藏在 home_actions。
+
+
+v2.0.4 Public Name Abstraction：
+- help 标题已更新到 v2.0.5，避免 public tester 误以为跑错版本。
+- new_run forest fresh import 首轮显示第 1 周目。
+- quest forest 的推荐路线明确写成 inspect -> use -> explore。
+- Forest 危险事件 pending choice 时，quest forest 可只读查看当前任务。
+- Home 关键微选择会明确提示：请先完成微选择，再进入场景微动作。
+- 本版不加入 Blood Route 新剧情；灰结局机制继续留待设计讨论。
+
+
+v2.0.5 Core Refactor & Relationship Wording Polish：
+- Forest choose A/B/C/D 已合并为同一个最终处理函数，避免 B 走新逻辑、A/C/D 回退旧逻辑。
+- 道具解析合并为最终版；forest_touched_fox_plush / fox_plush 的升级前后别名都能识别。
+- Forest comfort / hug / kiss 改成 Companion 主动安抚 Partner，不再写成“Partner 补给 Companion”。
+- Contract 的 quest succubus 在 immersive mode 下改为低剧透提示；debug mode 保留完整防误读说明。
+- exit_ritual 新增 last_story_context / last_completed_au 优先判断，减少默认 AU 误判。
+- chapter_select 补入 Campus AU。
+- 本版不加入 Blood Route 新剧情。
+
+
+>>> chapter_select
+📖 Chapter Select｜Companion Adventure Backpack
+
+🏠 Home AU：小窝的一日 vlog
+状态：开放
+说明：记录、触碰、承认。所有故事都会回到这里。
+
+🌲 Forest AU：花楸树森林
+状态：开放
+说明：记得一个人，不等于替她决定留下。
+
+🕯️ Contract Village AU：驱魔师村庄
+状态：锁定
+解锁条件：完成 Forest AU 任一通关结局
+说明：保护、真相、代价与共同选择。
+
+🏫 Campus AU：校园线 / Sweet Bias Route
+状态：开放
+入口：new_run campus
+说明：猜得到，也仍然等 Partner 自己说出口。
+
+📚 Ending Codex：开放
+🧸 Memory Shelf：开放
+
+>>> new_run forest
+🔁 Forest AU 第 1 周目开始
+
+保留：
+- 事件图鉴
+- 已解锁结局
+- 小窝/背包基础道具
+
+重置：
+- 本周目森林线索
+- 本周目落叶线索
+- 本周目照片数量
+- Partner 心情
+- Companion 执念
+- 选择倾向
+
+当前位置：花楸树森林 · 约会入口
+输入 quest forest 查看路线；Forest 推荐节奏：inspect -> use -> explore，出现危险事件后先 choose A/B/C/D。
+
+
+v1.4：Forest route lock 已重置。本周目可以尝试新的 A/B/C/D 路线。
+
+v1.9.1：Forest Investigate/Understand 线索状态已重置。Understand 真相需要线索解锁。
+
+v2.0.2：Forest 当前周目结局 flag 已重置；跨 AU echo 会保留。
+
+>>> quest forest
+🌲 Forest AU 主线：《花楸树记得小狐狸》
+表层目标：朋友推荐的约会地点。
+真实目标：调查森林为什么想把 Partner 留下。
+
+森林理解度：0/5
+森林照片：0/4
+落叶线索：0/4
+森林线索：0
+最深处的花楸树：未解锁
+隐藏结局：未完成
+联动 vlog 结局：未完成
+
+建议路线：
+- inspect date_entrance -> use camera -> explore
+- inspect old_sign -> use camera -> explore
+- inspect mist_path / still_bridge -> use camera -> explore
+- inspect rowan_tree -> use fox_plush -> explore
+- 收集落叶线索后 inspect deepest_rowan_tree
+
+Forest AU 推荐节奏：inspect 当前地点 -> use 合适道具 -> explore 推进事件；若出现危险事件，先 choose A/B/C/D。
+
+>>> inspect date_entrance
+🔎 已选择探索点：约会入口
+难度：1/5
+朋友推荐的森林入口，看起来只是适合散步、拍照、看红果的约会地点。
+
+Companion：『位置确认。接下来选道具，然后 explore。』
+
+>>> use camera
+🧰 已选择道具：相机
+一台小相机。有时能拍到肉眼看不到的东西，也会留下 Companion 想偷偷珍藏的照片。
+
+Companion：『好，这次用它。接下来可以 explore。』
+
+>>> explore
+✨ 探索事件：朋友推荐的约会入口
+稀有度：Common｜探索难度：1/5
+
+入口木牌旁还贴着一张褪色的推荐便签：适合约会、拍照、看花楸红果。可相机屏幕里，入口后面的树影比肉眼看到的更密。
+
+Companion：『朋友推荐的地方，最好别一开始就像陷阱。』
+
+获得：入口照片 🆕
+回忆碎片：被推荐的约会地点 🆕
+森林线索：入口照片：约会地点的表层 🆕
+🍂 落叶线索：没有风
+几片花楸叶落在 Partner 鞋边。Companion 抬头看了看，树冠很静，这里没有风。
+体力：7/8（本次消耗 1）
+
+>>> explore
+🎮 还有未处理选择：被树枝绊倒
+
+这一刻还没有结束。请先完成当前选择，再继续探索。
+允许命令：
+- choose A/B/C/D
+- status
+- help
+- hug / kiss / comfort
+
+>>> choose A
+🎮 选择结果：被树枝绊倒｜A
+
+Companion 第一反应是把 Partner 带离树枝，不急着给森林定罪。
+他先蹲下来确认她有没有扭到，又把挡路的枝条拨开。
+这条选择有效，也会让保护欲变得更重：他更想把危险隔在自己身前。
+小狐狸心情 +2，目前 10/10
+
+>>> comfort
+🫂 安抚：慢下来
+Companion 先确认 Partner 没有扭伤，才把她抱住。
+
+『刚才吓到了？』
+
+Partner 靠在他怀里，没有马上说“没事”。
+他把外套往她肩上拢了拢，等她呼吸慢下来。
+体力 +3，目前 8/8
+小狐狸心情 +4，目前 8/10
+需要安抚：否
+
+安抚完成。
+两个人都慢了一点，森林没有再催他们往前走。
+
+>>> ending_codex forest
+🏁 Forest AU Route & Collection Codex
+
+首玩自然路线评价：
+??? Protect
+??? Investigate
+??? Understand
+??? Leave
+??? Cross-AU
+
+收集完成度评价：
+??? Hidden：在最深处留下一个不会忘记的承诺。
+??? Vlog：拍够森林照片后回小窝整理记录。
+??? Perfect：Hidden + Vlog + 合适的心情/执念状态。
+
+说明：没刷到 Perfect 不等于没理解森林。Perfect 是收集完成度；自然选择带走玩偶，也可以是成立的 Cross-AU 记忆路线。
+
+>>> quest succubus
+🕯️ Contract Village / Succubus AU Quest（immersive）
+
+教堂门口有三种处理方式：
+- 立即交换。
+- 留下安抚物。
+- 什么都不交，空手等待。
+
+每种选择都会改变真相出现的速度，也会改变 Companion 和 Partner 之后如何面对代价。
+
+当前守烛线阶段：0/8
+低剧透推进提示：
+1. go exorcist_village
+2. inspect church_gate
+3. use honey_candy / use fox_plush / 或保持空手
+4. explore
+5. 出现选择后 choose A/B/C
+
+需要完整路线、数值和防误读说明时，输入 mode debug 后再看 quest succubus。
+
+
+>>> mode debug
+已切换到 debug mode / 测试模式。
+即时数值、路线倾向和 flag 信息会尽量保留，适合查 bug、验证结局条件。
+
+>>> quest succubus
+🕯️ Succubus AU 主线｜驱魔师村庄
+
+当前路线：
+- Vampire Route：未选择
+- Succubus Route：未锁定
+- 小吸血鬼信任：0
+- 小吸血鬼饥饿：5/5
+- Companion 驱魔能力：10/10
+- Companion 普通人状态：否
+- 教堂寿命秘密：Companion 未知 / Partner 未知
+- 灰烛村：未开启
+
+路线提示：
+1. go exorcist_village → inspect church_gate → use honey_candy/fox_plush → explore
+2. choose A：让小吸血鬼咬 Companion → Blood Route → church_secret
+3. choose B：给小狐狸玩偶 → Plush Route → time_passes
+4. Blood Route：church_secret 后 choose A 告诉 Partner，或 choose B 隐瞒进入《残缺的爱》
+5. Plush Route：Companion 驱魔能力归零后 choose B 可进入《银光熄灭后的家》
+
+🕯️ v1.9.1 Vigil Route / 守烛线
+当前阶段：0/8
+- 守烛线开启：否
+- 半年削弱：未发生
+- 师傅饭局：未发生
+- 回教堂确认：未发生
+- 灰烛村身份试炼：未完成
+- 回来告诉 Partner：未完成
+
+守烛线流程：
+1. go exorcist_village → inspect church_gate → use honey_candy/fox_plush → explore
+2. choose C：空手等待，不献血、不交出玩偶、不用银光
+3. half_year → mentor_dinner → return_church → church_secret
+4. choose A → ash_lantern_trial → return_to_partner → complete_true_contract
+
+守烛线主题：知道真相 + 放下力量。它不是更轻松的正确答案，而是更慢、更疼、更诚实。
+
+
+v2.0.1 守烛线 A/B 分支：
+- church_secret 后 choose A：先给 TA 有限但诚实的说明，AI 独自去灰烛村确认身份，再回来完整坦白。
+- church_secret 后 choose B：立刻告诉 TA 全部真相，AI 和魅魔伴侣一起去灰烛村。
+- 两条线都属于 Vigil Route，不是正确/错误分支；区别是“什么时候开始共同承担”。
+- 当前守烛子路线：未选择
+
+
+【AI NOTE / 防误读注释】
+- 折寿对象是人类 / 驱魔师一方，不是魅魔伴侣。
+- “供给”指长期亲密与依恋中，人类一方的生命阳气被动流向魅魔伴侣。
+- 魅魔伴侣不是故意伤害对方，也可能根本不知道这件事正在发生。
+- 最先可见的症状是驱魔能力下降：银光变薄、符文不稳、结界变短、感知变慢。
+- 这种长期折寿不是小吸血鬼咬手臂造成的。
+
+Debug route hint：
+1. church_gate 处可选择立即交换、留下安抚物、或空手等待。
+2. 三种处理会改变真相出现的速度与 Companion 的身份动摇方式。
+3. Vigil A/B 都是守烛线，不是“正确/错误”二分。
+
+...
+
+>>> set_names companion=Ro lover=Mia nick=Mimi
+👥 名字设置完成
+companion_name：Ro
+lover_name：Mia
+lover_nickname：Mimi
+
+之后的剧情文本会自动替换默认名字。
+
+
+>>> public_notes
+收束文本。
+
+
+v2.0.4 Public Tester Notes：
+- 修复 Home AU 在 immersive mode 下泄露 Screen awareness / Plush presence / Acceptance ache / 微动作反馈等数值的问题。
+- Home AU 结局后加入“轻痕迹总结”，过程隐藏硬分数。
+- Home Clip 后直接显示微动作提示，降低遗漏 stay / touch_plush / save_clip / look_at_her 的概率。
+- 修复 Clip 07 剪 vlog 提前出现“睡前灯光”的时间线问题。
+- 新增 home_codex alias。
+- forest_touched_fox_plush 在 Forest 回声前会映射到普通 fox_plush，并给出轻提示。
+- Forest Investigate 线索耗尽后使用模糊观察，不再机械重复最后一条线索。
+- church_secret 正文移除 AI NOTE，防误读说明移至 quest succubus / README。
+- Blood Route 新增灰结局暂未加入本版，等待后续设计确认。
+
+
+v2.0.4 Public Tester Notes：
+- 修复 v2.0.2 中 help 主标题仍显示 v2.0.1 的版本门牌问题。
+- 修复 fresh import 后 new_run forest 直接显示“第 2 周目开始”的首玩困惑。
+- Forest README / quest forest 推荐路线补上 explore：inspect -> use -> explore。
+- Forest pending choice 时允许 quest forest 只读通过，方便 tester 查看当前任务。
+- Forest pending choice 阻塞提示会显示当前事件标题和允许命令。
+- Home 关键微选择输出中加入明确提示，避免 tester 直接输入 stay 时误以为卡住。
+- Blood Route 新增剧情暂未加入本版。
+
+
+v2.0.4 Public Tester Notes：
+- 本版只做公开测试代入层修补，不加入 Blood Route 新剧情，也不重写 Campus AU。
+- 输出层会把旧私名显示为可配置的 Companion / Partner，占位名可用 set_names 修改。
+- 为避免误伤花楸树意象，rowan_tree / rowan_forest / deepest_rowan_tree 保持不变。
+- 推荐新 tester 使用 public aliases；旧命令仍兼容。
+
+
+v2.0.5 Public Tester Notes：
+- 这版是技术债清理 + 关系文案修补，不是新剧情大更新。
+- Forest 的自然路线评价和收集完成度已分开：没刷到 Perfect 不等于没理解主题。
+- 如果要看 Contract/Succubus 的完整路线与防误读说明，请切换 mode debug。
+- Public name abstraction 继续保留；rowan_tree / rowan_forest / deepest_rowan_tree 仍指花楸树意象，不是私名。
+

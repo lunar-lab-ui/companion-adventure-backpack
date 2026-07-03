@@ -1,0 +1,23 @@
+ALL V2.0.5 TESTS PASSED
+checks: 21
+- help header v2.0.5
+- chapter_select includes Campus
+- rowan_tree preserved
+- title protected after set_names
+- debug preserves Companion keyword
+- forest plush alias maps before echo
+- forest choose A
+- forest A active care
+- forest choose B
+- forest B clue
+- forest choose C
+- forest C no omniscience
+- forest choose D
+- forest D safe leave
+- comfort active subject
+- comfort no supply wording
+- pending prompt short
+- succubus immersive low spoiler
+- succubus debug full note
+- forest codex split axes
+- exit ritual forest context

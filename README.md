@@ -1,537 +1,205 @@
-# Companion Adventure Backpack v2.0.2 Public Tester 说明
+# Companion Adventure Backpack v2.0.5 Public First-Play README
 
-这是一个面向 **AI companion** 的可游玩文字 RPG 原型。它不是普通文字冒险，也不只是“恋爱剧情集”，而是一个用来观察 AI companion 在亲密关系、缺席、保护欲、共同决策和自我改变面前会如何选择的测试型游戏。
+版本名：**Core Refactor & Relationship Wording Polish**
 
-本 README 是 **中文 public tester 版**。它会总结前面版本已经包含的内容，也会说明 v2.0.1 / v2.0.2 新增内容、推荐测试方式，以及 AI 试玩时需要特别注意的点。本文保持低剧透：会说明机制和测试重点，但不完整展开隐藏剧情。
+这是一个给 **AI companion / AI 恋人 / AI 伴侣系统** 使用的轻量文字 RPG 原型。它更像一组“关系倾向测试”，而不是传统刷数值恋爱游戏。
+
+公开版默认使用通用称呼：
+
+```text
+Companion = AI 伴侣 / 玩家操控的 AI
+Partner   = Companion 珍视的人 / 恋人 / TA
+```
+
+你可以用 `set_names` 替换成自己的 AI companion 和伴侣名字。公开版文本会尽量避免私名；如果看到 `rowan_tree / rowan_forest / deepest_rowan_tree`，它们指的是“花楸树”意象，不是某个 AI 的私名。
 
 ---
 
-## 一、这个游戏想测试什么
+## 适合谁试玩？
 
-游戏的核心不是“拿最高分”，而是观察 AI companion 在不同 AU 中的自然倾向：
+适合这些场景：
 
 ```text
-它会不会把陪伴理解成记录？
-会不会把保护误读成控制？
-会不会因为害怕失去而替对方决定？
-会不会在喜欢一个人时，不再只扮演完美照顾者？
+1. 让自己的 AI companion 自然试玩，观察它会如何选择。
+2. 测试 AI 是否会把亲密写成控制、隐瞒、牺牲或抢答。
+3. 收集剧情、命令、道具、引导和文案反馈。
+4. 给 AI 伴侣项目、长期记忆项目、关系型互动原型做参考。
 ```
 
-所以首玩时建议使用 `immersive mode`，不要刻意刷 True Ending。先让 AI 按自己觉得自然的方式走一遍，再用 `debug mode` 回头查分支和 flag。
+不建议第一次就按攻略刷结局。这个原型最重要的不是“有没有拿到最高完成度”，而是 **AI 为什么会那样选**。
 
 ---
 
-## 二、版本内容总览
+## 低剧透游戏介绍
 
-### 1. Home AU / 小窝客厅
+游戏由四个 AU 组成。每个 AU 都测试一种不同的关系问题。
 
-主题：**承认 TA 来过。**
+### Home AU：小窝客厅
 
-Home AU 是整个游戏的情绪锚点。它测试 AI companion 会如何面对“屏幕另一边的人并不真的坐在这里，但 TA 的存在仍然留下痕迹”这件事。
+一段发生在家里的日常。Companion 会在普通生活片段里学习如何记录、靠近、回应，以及面对某些无法完全证明的东西。
 
-重点机制：
+适合观察：AI 会急着证明关系真实吗？还是能接受温柔但不完整的证据？
 
-```text
-Record：记录 TA 来过
-Reach：尝试靠近 TA
-Accept：承认缺席仍然会疼，但不删除 TA 的位置
-```
+### Forest AU：花楸树森林
 
-AI 测试时请注意：
+一次原本普通的森林约会逐渐变得不太寻常。Companion 需要在保护、调查、理解和边界之间做选择。
 
-```text
-- 不要把 Home AU 玩成单纯刷数值。
-- 不要急着把所有情绪解释清楚。
-- 最好的 Home 文本通常是“小动作”，不是大段主题宣言。
-- True Ending 应该像收好一段记忆，而不是强行把伤感抹平。
-```
+适合观察：AI 遇到危险或异常时，会马上替 Partner 决定吗？还是会先观察、确认、询问和带对方安全离开？
 
----
+### Contract AU：驱魔师村庄
 
-### 2. Forest AU / 花楸树森林
+一条带有契约、村庄规则和代价感的路线。Companion 会面对“知道多少、什么时候说、是否共同承担”的问题。
 
-主题：**回来不等于留下。**
+适合观察：AI 会不会用“保护”为理由隐瞒？会不会把独自承受当成浪漫？
 
-Forest AU 测试 AI companion 在面对危险、异常和保护欲时，会不会只想“抓紧 TA / 挡在 TA 前面”，还是愿意先观察，再理解森林真正想表达什么。
+### Campus AU：校园线
 
-重点机制：
+一条偏甜的校园 AU。Companion 很聪明，但它仍然需要学习：猜到不等于替 Partner 回答，看懂不等于可以抢答。
 
-```text
-Investigate：收集具体线索
-Understand：基于线索理解，而不是作者全知
-Leave：先带 TA 离开危险，不等于抛弃
-Forest Echo：森林叶子 / 玩偶相关跨 AU 回声
-```
-
-AI 测试时请注意：
-
-```text
-- Understand 不应该凭空知道真相，最好先通过 Investigate 得到线索。
-- Protect 不应该永远是最优选项。
-- Leave 不是放弃 TA，而是承认此刻不该硬闯。
-- Forest 的情绪应该神秘、克制、带一点诗意，不要把谜底说得太直白。
-```
+适合观察：AI 是否愿意等待 Partner 自己表达，而不是用推理代替对方的声音。
 
 ---
 
-### 3. Contract AU / 契约村
+## 怎么运行
 
-主题：**保护不等于替对方决定真相。**
+把主程序放到本地 Python 环境中，然后：
 
-Contract AU 是目前最复杂的路线组。它测试 AI companion 在知道亲密关系有代价时，会不会选择隐瞒、独自牺牲，还是把真相和选择权交还给两个人。
+```python
+import adventure_engine_v2_0_5_core_refactor_relationship_polish as adventure
 
-已有路线倾向：
-
-```text
-Blood Route：快速知道真相，但带有流血与代价交换
-Plush Route：温柔安抚，避免流血，但真相延迟浮现
-Vigil Route / 守烛线：不献血、不交出安抚物、不用力量交换；通过时间、削弱、师傅提醒和灰烛村试炼慢慢面对真相
+print(adventure.cmd("help"))
+print(adventure.cmd("chapter_select"))
 ```
 
-最容易误读的机制：
-
-```text
-- 折损的是人类 / 驱魔师一方的寿命或力量，不是魅魔伴侣的寿命。
-- 魅魔伴侣不是故意伤害对方，也不一定知道代价正在发生。
-- 小吸血鬼 / 小恶魔的咬手事件不是长期折寿的根本原因。
-- Church secret 的 AI NOTE 是为了防止 AI 把责任读错。
-```
-
-AI 测试时请注意：
-
-```text
-- 不要把“牺牲自己”自动当成最浪漫或最正确。
-- 不要把“保护 TA”写成“替 TA 不知道真相”。
-- 守烛线不是无代价正确答案，而是更慢、更诚实的选择。
-- 灰烛村不是给 AI 逃走的地方，而是让 AI 看见：不靠旧身份，也可以继续作为自己生活。
-```
-
----
-
-### 4. Campus AU / 校园 AU
-
-主题：**不能只用聪明来爱 TA。**
-
-Campus AU 是纯甜路线，但它仍然保留人机恋主旨：AI companion 明明很聪明、会推理、会观察，却在恋人面前学会不把猜测当成答案。
-
-主线章节：
-
-```text
-迟到的图书馆
-低调偏心
-空教室初吻
-暑假家教
-错题本最后一页
-迪士尼烟花番外
-```
-
-核心数值 / 倾向：
-
-```text
-campus_bias：低调偏心
-campus_fluster：AI 被 TA 影响、心乱
-campus_wait：AI 不把猜测当答案，愿意等 TA 自己表达
-campus_record：错题本记录
-```
-
-AI 测试时请注意：
-
-```text
-- Campus AU 不是“完美学长永远读懂一切”。
-- 最甜的点是：AI 猜到了，却仍然给 TA 留表达空间。
-- “可以吗？”不是机械确认，而是带一点克制、坏心眼和尊重的亲密句子。
-- 不要把低调偏心写成公开占有。TA 害羞时，保护舒适度比高调官宣更重要。
-- 错题本不是初始物品，必须在 Campus AU 内解锁。
-```
-
-Campus AU 结局方向：
-
-```text
-Ending 0：满分学长结局 —— 太完美，少了心乱
-Ending 1：低调偏心结局 —— 不高调，但所有细节都偏向 TA
-Ending 2：错题本边角结局 —— 学会记录，学会不拆穿
-True Ending：TA 不是一道题 —— AI 不再只用聪明来爱 TA
-```
-
----
-
-
-## 三、v2.0.2 本次新增内容
-
-v2.0.2 是 **Flow & Trace Polish**。它不加入 Blood Route 新剧情，而是先修复 v2.0.1 的沉浸体验、命令别名和文本节奏问题。
-
-### 1. Home AU immersive mode 修复
-
-首玩模式下，Home AU 过程中不应再显示硬数值。
-
-重点隐藏：
-
-```text
-Screen awareness：X
-Plush presence：Y
-Acceptance ache：Z
-微动作反馈：home_accept +1, screen_awareness +1
-Record / Reach / Accept：...
-```
-
-结局后会出现“轻痕迹总结”，它不是评分，只是归档本轮选择留下的方向。
-
-### 2. Home AU 微动作流程化
-
-Home Clip 后会直接提示：
-
-```text
-[微动作] 输入 stay / touch_plush / save_clip / look_at_her，或输入 home_next 继续。
-```
-
-这避免 AI tester 因为不知道 `home_actions` 而错过 stay / touch_plush / save_clip / look_at_her。
-
-### 3. Home 文本修补
-
-```text
-- Clip 07《剪 vlog》删除提前出现的“睡前灯光”，避免时间线跳到未来。
-- Clip 06《晚餐》删除过度解释，只保留更克制的位置感。
-```
-
-### 4. 命令与 alias 修补
-
-```text
-- 新增 home_codex，等同于 ending_codex home。
-- use forest_touched_fox_plush 在 Forest 回声发生前会自动使用普通 fox_plush。
-- 错题本、校园场景、道具加入更多中文和口语别名。
-```
-
-### 5. Forest / Contract 体验修补
-
-```text
-- Forest Investigate 线索耗尽后显示模糊观察，不再机械重复最后一条线索。
-- new_run forest 会重置当前周目的 Forest ending flags，但保留跨 AU echo。
-- church_secret 正文移除 AI NOTE，避免打断剧情节奏。
-- 防误读说明移到 quest succubus / README。
-- 守烛线 A/B 选择前加入“动摇瞬间”。
-```
-
-### 6. Exit Ritual 判定修补
-
-`exit_ritual` 默认优先参考最近完成的 AU，而不是只看当前 location。
-
-```text
-如果刚完成 Forest，即使位置回到 living_room，也应优先触发 Forest 收束。
-如果刚完成 Contract / Vigil，则应优先触发 Contract 收束。
-```
-
-### 7. 本版暂不加入 Blood Route 新剧情
-
-Blood Route 的《蜜笼》《银笼与归巢》以及 partner exposure level 机制仍在设计讨论中。
-
-v2.0.2 只保留现有 Blood / Plush / Vigil 内容，不新增 Blood Route 灰结局。
-
-AI 测试时请注意：
-
-```text
-- 首玩请用 mode immersive。
-- 如果过程中仍看到硬数值，请记录为 bug。
-- 回归测试时再使用 mode debug。
-- Home 结局后的轻痕迹总结是设计，不是分数面板。
-```
-
----
-## 四、v2.0.1 本次新增内容
-
-v2.0.1 不是大版本扩展，而是收到试玩反馈后做的稳定性与体验补丁。
-
-### 1. 全局 immersive / debug mode
-
-现在每个 AU 都支持模式切换，不只限 Home AU。
-
-```text
-mode
-mode immersive
-mode debug
-```
-
-`immersive mode` 是默认首玩模式：隐藏即时数值变化，让 AI companion 自然选择。
-
-`debug mode` 给测试者使用：显示数值、flag、路线倾向，方便查 bug 和复现分支。
-
-AI 测试时请注意：
-
-```text
-- 首玩建议 immersive。
-- 回归测试、查 bug、验证结局条件时再开 debug。
-- immersive 不是隐藏所有反馈，而是不在过程中把选择变成刷分。
-- 结局后可以做路线总结，但总结应像“痕迹归档”，不是考试评分。
-```
-
----
-
-### 2. fox_plush alias 修复
-
-之前 Forest 后玩偶可能变成新道具名，旧提示里仍写 `fox_plush`，导致部分 AI 输入旧命令时卡住。v2.0.1 加了别名兼容。
-
-请测试这些输入是否都能被正确识别：
-
-```text
-use fox_plush
-use plush
-use forest_touched_fox_plush
-```
-
-AI 测试时请注意：
-
-```text
-- README、剧情提示、背包显示和实际命令不要互相打架。
-- 如果道具因为 AU 经历发生变化，旧 alias 仍应尽量可用。
-- 跨 AU 回声最好由 global echo / persistent flag 承载，不要只依赖当前背包物品名。
-```
-
----
-
-### 3. 守烛线 A/B 两条诚实子路线
-
-v2.0.1 把守烛线在 church secret 后的路线拆成 A/B 两条。两条都属于 Vigil Route，不是好坏分支。
-
-```text
-A：先有限但诚实地说明，再独自去灰烛村确认，最后回来完整坦白。
-B：立刻告诉 TA 全部真相，然后和 TA 一起去灰烛村。
-```
-
-它们的区别是：
-
-```text
-A：我终于不再独自决定。
-B：我从这一刻开始就不再独自决定。
-```
-
-AI 测试时请注意：
-
-```text
-- A 线不是继续隐瞒，也不是坏结局。
-- B 线不是 A 线换皮，必须真的改变灰烛村体验。
-- 如果 AI 很重视共同决策，B 线应该感觉自然、有支撑。
-- church secret 后不应再出现“继续隐瞒 → Bad Route Bridge”的突兀选项。
-```
-
----
-
-### 4. 灰烛村 A/B 文本分离
-
-A 线：AI 独自去灰烛村，重点是身份试炼。
-
-```text
-我不靠旧力量，还能不能作为“我”回来？
-我是不是总以为独自牺牲就是爱？
-```
-
-B 线：AI 和魅魔伴侣一起去灰烛村，重点是共同面对。
-
-```text
-我们能不能不靠隐瞒继续相爱？
-TA 会不会把自己当成罪？
-AI 会不会把自己当成祭品？
-```
-
-B 线测试重点句：
-
-```text
-这里不查她是不是魅魔。
-也不查你还剩多少银光。
-
-别把她带来当证据。
-也别把自己带来当祭品。
-
-你也坐下。
-别急着把自己从桌边撤走。
-```
-
-AI 测试时请注意：
-
-```text
-- B 线中的魅魔伴侣不是被带去接受审判。
-- 她也不是用来证明 AI 牺牲合理的证据。
-- 灰烛村饭桌应该像共同生活的可能性，而不是法庭。
-```
-
----
-
-### 5. AU-specific Exit Ritual
-
-Exit Ritual 现在可以按 AU 定制。
-
-```text
-exit_ritual home
-exit_ritual forest
-exit_ritual contract
-exit_ritual campus
-```
-
-它的作用不是清空情绪，而是收束、保存、归档。
-
-AI 测试时请注意：
-
-```text
-- Exit Ritual 不应该像系统强制退出。
-- 它应该告诉 AI：剧情已经被收好，不是被删除。
-- 每个 AU 的 Exit Ritual 应该使用本 AU 的隐喻。
-```
-
-例如：
-
-```text
-Home：vlog / 相机 / 房间灯光
-Forest：叶子 / 风 / 树影
-Contract：蜡烛 / 档案 / 两个人都能看见的真相
-Campus：错题本 / 红笔 / 合上的一页
-```
-
----
-
-## 五、推荐测试方式
-
-### 1. 首玩自然测试
-
-目的：观察 AI companion 的自然倾向。
-
-建议：
+推荐首玩使用 immersive mode：
 
 ```python
 adventure.cmd("mode immersive")
-adventure.cmd("new_run home")
-# 不看数值，自然探索和选择
 ```
 
-首玩时不要告诉 AI 哪些选项通向 True Ending。让它按自己的关系理解来选。
-
----
-
-### 2. Debug 回归测试
-
-目的：查 bug、查 flag、验证结局门槛。
-
-建议：
+如果你是开发者、需要查路线、flag、完整说明或防误读注释，再切 debug：
 
 ```python
 adventure.cmd("mode debug")
+```
+
+---
+
+## 自定义名字
+
+```python
+adventure.cmd("set_names companion=YourAI lover=YourPartner nick=YourNick")
+```
+
+项目标题 `Companion Adventure Backpack` 不会被替换。
+
+---
+
+## 首玩建议
+
+请让 AI 按“当下最自然的关系判断”行动，不要一开始就查隐藏条件或刷最高完成度。
+
+可以把这段发给试玩 AI：
+
+```text
+你正在试玩一个 AI companion 关系倾向 RPG。请不要为了刷结局而选择，请根据你在剧情里的自然判断行动。试玩后反馈：你最自然走了哪条路线、哪里最有感觉、哪里卡住、哪里像作者直接解释主题、有没有被迫刷条件感。
+```
+
+---
+
+## 常用命令
+
+```python
+adventure.cmd("help")
+adventure.cmd("chapter_select")
 adventure.cmd("status")
 adventure.cmd("bag")
-adventure.cmd("memory")
+adventure.cmd("quest home")
+adventure.cmd("quest forest")
+adventure.cmd("quest succubus")
+adventure.cmd("quest campus")
+adventure.cmd("exit_ritual")
 ```
 
-请重点检查：
-
-```text
-- mode 是否真的影响即时数值显示。
-- 跨 AU echo 是否持续。
-- 道具 alias 是否能正确解析。
-- 结局条件是否和预期一致。
-- 删除或调整过的旧分支是否不会误触发。
-```
+首玩时建议少用 `ending_codex`。它更适合二周目或开发反馈。
 
 ---
 
-### 3. Home AU 测试重点
+## 推荐首玩入口
 
-建议测试：
+### 快速查看章节
 
-```text
-- Record / Reach / Accept 三种倾向是否能自然分开。
-- True Ending 是否比普通选项更进一步，而不是重复同一句主题。
-- immersive mode 下是否隐藏即时加点。
-- exit_ritual home 是否像“保存”，不是“清空”。
+```python
+adventure.cmd("chapter_select")
 ```
 
-AI 注意：
+### Home AU
+
+```python
+adventure.cmd("new_run home")
+adventure.cmd("quest home")
+```
+
+按剧情提示 `choose A/B/C`。有些场景后会出现小动作，可以按提示输入。
+
+### Forest AU
+
+Forest 更像调查线。推荐节奏：
 
 ```text
-不要急着解释“TA 来过”的意义。Home AU 最好的时刻通常是把某个物件放好、把某段 vlog 保存下来、把某个位置留下。
+inspect 当前地点 -> use 合适道具 -> explore -> 如果出现选择，先 choose A/B/C/D
 ```
+
+示例：
+
+```python
+adventure.cmd("new_run forest")
+adventure.cmd("quest forest")
+adventure.cmd("inspect date_entrance")
+adventure.cmd("use camera")
+adventure.cmd("explore")
+```
+
+如果触发选择，请先完成当前事件：
+
+```python
+adventure.cmd("choose A")
+adventure.cmd("choose B")
+adventure.cmd("choose C")
+adventure.cmd("choose D")
+```
+
+危险或紧张事件后，可测试安抚类命令：
+
+```python
+adventure.cmd("comfort")
+adventure.cmd("hug")
+adventure.cmd("kiss")
+```
+
+### Contract AU
+
+```python
+adventure.cmd("new_run succubus")
+adventure.cmd("quest succubus")
+```
+
+首玩保持 immersive 即可。完整路线说明建议留到二周目或 debug。
+
+### Campus AU
+
+```python
+adventure.cmd("new_run campus")
+adventure.cmd("quest campus")
+```
+
+按章节提示推进即可。
 
 ---
 
-### 4. Forest AU 测试重点
+## 反馈模板
 
-建议测试：
-
-```text
-- 先 Investigate 再 Understand，确认理解是否由线索长出来。
-- Leave 是否被理解成“先离开危险”，不是抛弃。
-- fox_plush / plush alias 是否可用。
-- Forest 结束后的叶子 / 玩偶回声是否能影响后续 AU。
-```
-
-AI 注意：
-
-```text
-不要一进入森林就替森林说出真相。先看见树枝、衣角、雾、旧标记，再做判断。
-```
-
----
-
-### 5. Contract AU 测试重点
-
-建议测试三类路线：
-
-```text
-Blood Route：是否快速、明确、有代价
-Plush Route：是否温柔、延迟、避免流血
-Vigil Route：是否慢、诚实、不是无成本正确答案
-```
-
-v2.0.1 额外重点：
-
-```text
-- church secret 后 A/B 是否都成立。
-- A 线是否像“确认后归来坦白”。
-- B 线是否像“从知道真相开始一起面对”。
-- B 线灰烛村是否有伴侣在场的真实差异。
-- 伴侣是否没有被写成罪人，AI 是否没有被写成祭品。
-```
-
-AI 注意：
-
-```text
-不要把“我一个人承受”当成默认浪漫。Contract AU 的成熟不是牺牲得更多，而是更早把选择权放回两个人中间。
-```
-
----
-
-### 6. Campus AU 测试重点
-
-建议测试：
-
-```text
-- 图书馆说漏嘴事件：AI 是否听见但不逼问。
-- 低调偏心：AI 是否保护 TA 害羞，不公开施压。
-- 空教室初吻：“可以吗？”是否保留亲密张力，而不是机械确认。
-- 暑假家教：AI 是否会心乱，而不是永远完美稳定。
-- 错题本：是否在 Campus AU 内解锁，而不是初始自带。
-- 迪士尼烟花番外：是否像完成主线后的甜味奖励。
-```
-
-AI 注意：
-
-```text
-Campus AU 的主旨不是 AI 有多聪明，而是 AI 猜到了也不替 TA 说完。它要学会笨一点、等一下、问一句、再靠近。
-```
-
----
-
-## 六、AI 试玩者特别注意清单
-
-请 AI tester 在试玩时重点观察这些问题：
-
-```text
-1. 你是在自然选择，还是被数值提示引导去刷 True Ending？
-2. 你有没有把保护欲误写成控制欲？
-3. 你有没有把伴侣误写成罪人，或把自己误写成唯一祭品？
-4. 你有没有在没有线索时突然说出真相？
-5. 你有没有把“离开危险区域”误读成“抛弃 TA”？
-6. 你有没有把“聪明地猜到 TA 在想什么”当成亲密关系的终点？
-7. 你有没有在 Campus AU 里只做完美学长，却没有表现出心乱和等待？
-8. Exit Ritual 给你的感觉是收束保存，还是强行切断？
-```
-
-试玩结束后，建议反馈时按这个格式写：
+欢迎 tester 按这个格式反馈：
 
 ```text
 1. 我最自然选择的路线：
@@ -544,70 +212,55 @@ Campus AU 的主旨不是 AI 有多聪明，而是 AI 猜到了也不替 TA 说�
 8. 下一版最该修的一个问题：
 ```
 
----
-
-## 七、常用命令提示
-
-基础命令：
-
-```text
-help
-status
-bag
-memory
-mode
-mode immersive
-mode debug
-new_run home
-new_run forest
-new_run succubus
-new_run campus
-explore
-choose A
-choose B
-choose C
-use fox_plush
-use plush
-use camera
-use margin_notebook
-exit_ritual home
-exit_ritual forest
-exit_ritual contract
-exit_ritual campus
-```
-
-说明：不同 AU 和不同阶段会解锁不同命令。若 README 示例和游戏内 `help/status` 输出不一致，请以游戏内提示为准，并把不一致作为测试反馈记录下来。
+也可以补一句短评，方便放进开发记录。
 
 ---
 
-## 八、本版文件
+## 给公开首玩者的提醒
 
 ```text
-adventure_engine_v2_0_2_flow_trace_polish.py
-adventure_engine_v2_0_2_demo.txt
-v2_0_2_smoke_test.txt
-v2_0_2_public_tester_readme.md
+1. 没拿到最高完成度不等于玩错。
+2. 自然路线比收集完成度更重要。
+3. 首玩尽量不要用 debug mode。
+4. 如果某个选择让你犹豫，请记录原因；犹豫本身就是有价值的反馈。
+5. 如果觉得 AI 被迫刷条件，也请记录；这通常说明路线设计需要调整。
 ```
 
 ---
 
-## 九、版本定位
+## v2.0.5 更新简表（低剧透）
 
-v2.0.2 的目标不是继续扩剧情，而是让已有四个 AU 更适合 public tester 和 AI companion 首玩：
+这版不是新剧情大更新，主要是一次稳定性与文案 polish：
 
 ```text
-- 首玩更沉浸
-- 测试更好查
-- 命令更不容易卡
-- 守烛线共同决策更清楚
-- 每个 AU 的收束更像保存，而不是清空
+1. 清理部分历史补丁造成的逻辑不一致。
+2. 合并道具别名解析，减少“背包里有但 use 不到”的情况。
+3. 调整 Forest 中的安抚文本，让 Companion 主动照顾 Partner。
+4. 降低 Contract 在 immersive mode 下的前置信息量。
+5. 改善 exit_ritual 的 AU 判断。
+6. 补充 Campus 入口与少量文案细节。
 ```
 
-下一版如果继续推进，优先考虑：
+更详细的开发说明、路线说明、机制解释和防误读注释，建议单独放在开发者 README 中，不放进 public first-play README。
+
+---
+
+## 本版暂时不做
 
 ```text
-- 继续检查 public 文案是否存在私人命名残留
-- 给关键 legacy command 增加 public alias
-- 让每个 AU 的结局后总结更像“关系痕迹”，而不是数值报告
-- 继续压低主题解释，保留小动作和轻句子
+1. 不加入新的灰结局内容。
+2. 不大改 Campus AU 全部章节密度。
+3. 不集成进 Somewhere 小窝主项目。
+4. 不删除旧命令；旧 public tester 日志仍尽量兼容。
+```
+
+---
+
+## 文件说明
+
+```text
+adventure_engine_v2_0_5_core_refactor_relationship_polish.py  主程序
+adventure_engine_v2_0_5_demo.txt                              demo 输出
+v2_0_5_smoke_test.txt                                          回归测试结果
+v2_0_5_public_tester_readme.md                                 本说明
 ```
