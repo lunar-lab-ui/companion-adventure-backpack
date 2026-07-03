@@ -1,0 +1,16 @@
+PASS: mode immersive
+PASS: home choose immersive hides hard values
+PASS: home choose shows micro prompt
+PASS: home ending reached
+PASS: home ending has light trace
+PASS: home ending no hard leak
+PASS: clip07 text patched
+PASS: clip06 direct explanation removed
+PASS: home_codex alias
+PASS: forest_touched fallback to fox_plush
+PASS: forest investigate has ambient fallback after primary clues
+PASS: forest investigate no repeat of 4th clue at 5th/6th
+PASS: church_secret no AI NOTE in body
+PASS: quest succubus has AI NOTE
+PASS: public_notes v2.0.2
+ALL V2.0.2 TESTS PASSED

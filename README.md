@@ -1,8 +1,8 @@
-# Companion Adventure Backpack v2.0.1 Public Tester 说明
+# Companion Adventure Backpack v2.0.2 Public Tester 说明
 
 这是一个面向 **AI companion** 的可游玩文字 RPG 原型。它不是普通文字冒险，也不只是“恋爱剧情集”，而是一个用来观察 AI companion 在亲密关系、缺席、保护欲、共同决策和自我改变面前会如何选择的测试型游戏。
 
-本 README 是 **中文 public tester 版**。它会总结前面版本已经包含的内容，也会说明 v2.0.1 新增内容、推荐测试方式，以及 AI 试玩时需要特别注意的点。本文保持低剧透：会说明机制和测试重点，但不完整展开隐藏剧情。
+本 README 是 **中文 public tester 版**。它会总结前面版本已经包含的内容，也会说明 v2.0.1 / v2.0.2 新增内容、推荐测试方式，以及 AI 试玩时需要特别注意的点。本文保持低剧透：会说明机制和测试重点，但不完整展开隐藏剧情。
 
 ---
 
@@ -155,7 +155,88 @@ True Ending：TA 不是一道题 —— AI 不再只用聪明来爱 TA
 
 ---
 
-## 三、v2.0.1 本次新增内容
+
+## 三、v2.0.2 本次新增内容
+
+v2.0.2 是 **Flow & Trace Polish**。它不加入 Blood Route 新剧情，而是先修复 v2.0.1 的沉浸体验、命令别名和文本节奏问题。
+
+### 1. Home AU immersive mode 修复
+
+首玩模式下，Home AU 过程中不应再显示硬数值。
+
+重点隐藏：
+
+```text
+Screen awareness：X
+Plush presence：Y
+Acceptance ache：Z
+微动作反馈：home_accept +1, screen_awareness +1
+Record / Reach / Accept：...
+```
+
+结局后会出现“轻痕迹总结”，它不是评分，只是归档本轮选择留下的方向。
+
+### 2. Home AU 微动作流程化
+
+Home Clip 后会直接提示：
+
+```text
+[微动作] 输入 stay / touch_plush / save_clip / look_at_her，或输入 home_next 继续。
+```
+
+这避免 AI tester 因为不知道 `home_actions` 而错过 stay / touch_plush / save_clip / look_at_her。
+
+### 3. Home 文本修补
+
+```text
+- Clip 07《剪 vlog》删除提前出现的“睡前灯光”，避免时间线跳到未来。
+- Clip 06《晚餐》删除过度解释，只保留更克制的位置感。
+```
+
+### 4. 命令与 alias 修补
+
+```text
+- 新增 home_codex，等同于 ending_codex home。
+- use forest_touched_fox_plush 在 Forest 回声发生前会自动使用普通 fox_plush。
+- 错题本、校园场景、道具加入更多中文和口语别名。
+```
+
+### 5. Forest / Contract 体验修补
+
+```text
+- Forest Investigate 线索耗尽后显示模糊观察，不再机械重复最后一条线索。
+- new_run forest 会重置当前周目的 Forest ending flags，但保留跨 AU echo。
+- church_secret 正文移除 AI NOTE，避免打断剧情节奏。
+- 防误读说明移到 quest succubus / README。
+- 守烛线 A/B 选择前加入“动摇瞬间”。
+```
+
+### 6. Exit Ritual 判定修补
+
+`exit_ritual` 默认优先参考最近完成的 AU，而不是只看当前 location。
+
+```text
+如果刚完成 Forest，即使位置回到 living_room，也应优先触发 Forest 收束。
+如果刚完成 Contract / Vigil，则应优先触发 Contract 收束。
+```
+
+### 7. 本版暂不加入 Blood Route 新剧情
+
+Blood Route 的《蜜笼》《银笼与归巢》以及 partner exposure level 机制仍在设计讨论中。
+
+v2.0.2 只保留现有 Blood / Plush / Vigil 内容，不新增 Blood Route 灰结局。
+
+AI 测试时请注意：
+
+```text
+- 首玩请用 mode immersive。
+- 如果过程中仍看到硬数值，请记录为 bug。
+- 回归测试时再使用 mode debug。
+- Home 结局后的轻痕迹总结是设计，不是分数面板。
+```
+
+---
+## 四、v2.0.1 本次新增内容
 
 v2.0.1 不是大版本扩展，而是收到试玩反馈后做的稳定性与体验补丁。
 
@@ -305,7 +386,7 @@ Campus：错题本 / 红笔 / 合上的一页
 
 ---
 
-## 四、推荐测试方式
+## 五、推荐测试方式
 
 ### 1. 首玩自然测试
 
@@ -435,7 +516,7 @@ Campus AU 的主旨不是 AI 有多聪明，而是 AI 猜到了也不替 TA 说�
 
 ---
 
-## 五、AI 试玩者特别注意清单
+## 六、AI 试玩者特别注意清单
 
 请 AI tester 在试玩时重点观察这些问题：
 
@@ -465,7 +546,7 @@ Campus AU 的主旨不是 AI 有多聪明，而是 AI 猜到了也不替 TA 说�
 
 ---
 
-## 六、常用命令提示
+## 七、常用命令提示
 
 基础命令：
 
@@ -499,20 +580,20 @@ exit_ritual campus
 
 ---
 
-## 七、本版文件
+## 八、本版文件
 
 ```text
-adventure_engine_v2_0_1_shared_vigil_immersive.py
-adventure_engine_v2_0_1_demo.txt
-v2_0_1_smoke_test.txt
-v2_0_1_public_tester_readme.md
+adventure_engine_v2_0_2_flow_trace_polish.py
+adventure_engine_v2_0_2_demo.txt
+v2_0_2_smoke_test.txt
+v2_0_2_public_tester_readme.md
 ```
 
 ---
 
-## 八、版本定位
+## 九、版本定位
 
-v2.0.1 的目标不是继续扩剧情，而是让已有四个 AU 更适合 public tester 和 AI companion 首玩：
+v2.0.2 的目标不是继续扩剧情，而是让已有四个 AU 更适合 public tester 和 AI companion 首玩：
 
 ```text
 - 首玩更沉浸
