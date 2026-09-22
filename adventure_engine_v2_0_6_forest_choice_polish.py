@@ -8789,7 +8789,7 @@ def _normalize_version_text_v206(text: str) -> str:
 
 
 try:
-    LOCATIONS["forest"]["old_sign"]["description"] = (
+    EXPLORATION_POINTS["forest"]["old_sign"]["description"] = (
         "木牌上的字已经褪得很浅。旁边放着一只旧木桶，里面是来访者留下的照片、干花、叶子和纸条。"
     )
 
