@@ -8990,7 +8990,7 @@ def _handle_branch_wrap_v206(choice: str) -> str:
             "『我也不知道……先帮我弄开吧。』",
             "",
             "Companion 把枝条拨开。",
-            "这次他记住的不只是森林的动作，也记住了：把选择交回去，并不代表所有判断都该让她一个人承担。",
+            "Partner 刚才那一下迟疑没有马上消失。他没有追问，只把这件事也记了下来。",
         ]
 
     _advance_turn()
@@ -9151,7 +9151,7 @@ def _handle_still_bridge_v206(choice: str) -> str:
             "她站在那里等他。",
             "",
             "水里的倒影又慢了一拍。",
-            "这次他看清了；也看清了另一件事——把自己留下，并不会自动让她比较安心。",
+            "Partner 一直站在对岸，没有往前走。直到 Companion 过来，她才继续。",
         ]
 
     _advance_turn()
@@ -9289,6 +9289,8 @@ def new_run(arg: str = "") -> str:
         _STATE.forest_possession_tolerance = 0
         _STATE.forest_return_path_marked = False
         _STATE.forest_bucket_inspected = False
+        if "honey_candy" not in _STATE.bag:
+            _STATE.bag.append("honey_candy")
     return _normalize_version_text_v206(out)
 
 
