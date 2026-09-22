@@ -1,0 +1,18 @@
+name: v2.0.6 Forest smoke
+
+on:
+  push:
+    branches:
+      - feature/forest-choice-polish-v2.0.6
+  pull_request:
+    paths:
+      - "adventure_engine_v2_0_6_forest_choice_polish.py"
+      - "v2_0_6_smoke_test.py"
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run v2.0.6 smoke tests
+        run: python3 v2_0_6_smoke_test.py
